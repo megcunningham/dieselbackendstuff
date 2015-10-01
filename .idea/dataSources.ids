@@ -113,6 +113,32 @@
       <column name="name" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
       <column name="seq" sqlType="" precision="2000000000" scale="10" nullable="true" jdbcType="12"/>
     </table>
+    <table name="workouts_exercise" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR(75)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="group_name_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_workouts_exercise_1" columns="group_name_id" ref-table="workouts_musclegroup" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_workouts_exerciseset_2" table="workouts_exerciseset" schema="" catalog="" columns="exercise_id"/>
+      <exported-key name="#FAKE_workouts_exerciseset_exercise_1" table="workouts_exerciseset_exercise" schema="" catalog="" columns="exercise_id"/>
+      <index name="workouts_exercise_e074f38c" unique="true" columns="group_name_id"/>
+    </table>
+    <table name="workouts_exerciseset" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="weight" sqlType="VARCHAR(200)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="reps" sqlType="VARCHAR(200)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="notes" sqlType="VARCHAR(200)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="exercise_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="group_name_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="number_of_sets" sqlType="VARCHAR(15)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_workouts_exerciseset_1" columns="group_name_id" ref-table="workouts_musclegroup" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_workouts_exerciseset_2" columns="exercise_id" ref-table="workouts_exercise" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_workouts_exerciseset_exercise_2" table="workouts_exerciseset_exercise" schema="" catalog="" columns="exerciseset_id"/>
+      <exported-key name="#FAKE_workouts_workout_exercise_1" table="workouts_workout_exercise" schema="" catalog="" columns="exerciseset_id"/>
+      <index name="workouts_exerciseset_e074f38c" unique="true" columns="group_name_id"/>
+      <index name="workouts_exerciseset_f57b1ff6" unique="true" columns="exercise_id"/>
+    </table>
     <table name="workouts_exerciseset_exercise" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
       <column name="exerciseset_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
@@ -120,6 +146,33 @@
       <primary-key columns="id"/>
       <foreign-key name="#FAKE_workouts_exerciseset_exercise_1" columns="exercise_id" ref-table="workouts_exercise" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="#FAKE_workouts_exerciseset_exercise_2" columns="exerciseset_id" ref-table="workouts_exerciseset" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+    </table>
+    <table name="workouts_musclegroup" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="group_name" sqlType="VARCHAR(20)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <primary-key columns="id"/>
+      <exported-key name="#FAKE_workouts_exercise_1" table="workouts_exercise" schema="" catalog="" columns="group_name_id"/>
+      <exported-key name="#FAKE_workouts_exerciseset_1" table="workouts_exerciseset" schema="" catalog="" columns="group_name_id"/>
+      <exported-key name="#FAKE_workouts_workout_1" table="workouts_workout" schema="" catalog="" columns="group_name_id"/>
+    </table>
+    <table name="workouts_workout" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="workout_name" sqlType="VARCHAR(60)" precision="2000000000" scale="10" nullable="false" jdbcType="12"/>
+      <column name="group_name_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_workouts_workout_1" columns="group_name_id" ref-table="workouts_musclegroup" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="#FAKE_workouts_workout_exercise_2" table="workouts_workout_exercise" schema="" catalog="" columns="workout_id"/>
+      <index name="workouts_workout_e074f38c" unique="true" columns="group_name_id"/>
+    </table>
+    <table name="workouts_workout_exercise" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="workout_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <column name="exerciseset_id" sqlType="INTEGER" precision="2000000000" scale="10" nullable="false" jdbcType="4"/>
+      <primary-key columns="id"/>
+      <foreign-key name="#FAKE_workouts_workout_exercise_1" columns="exerciseset_id" ref-table="workouts_exerciseset" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="#FAKE_workouts_workout_exercise_2" columns="workout_id" ref-table="workouts_workout" ref-schema="" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="workouts_workout_exercise_ae20db67" unique="true" columns="exerciseset_id"/>
+      <index name="workouts_workout_exercise_c1bc7825" unique="true" columns="workout_id"/>
     </table>
   </data-source>
 </component>
