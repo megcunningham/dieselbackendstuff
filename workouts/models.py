@@ -55,7 +55,7 @@ class Workout(models.Model):
     """
     workout_name = models.CharField(max_length=60, unique=True)
     group_name = models.ForeignKey(MuscleGroup)
-    level = models.ForeignKey(DifficultyLevel)
+    level = models.ForeignKey(DifficultyLevel, null=True)
     exercise = models.ManyToManyField(ExerciseSet)
 
     def __str__(self):
