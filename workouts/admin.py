@@ -37,9 +37,6 @@ class WeeklyWorkoutAdmin(admin.ModelAdmin):
     inlines = [SplitInline,]
 
 
-
-
-
 admin.site.register(MuscleGroup)
 admin.site.register(DifficultyLevel)
 

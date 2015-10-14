@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
@@ -65,7 +64,7 @@ ROOT_URLCONF = 'mystuff.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'dj.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -86,7 +85,7 @@ WSGI_APPLICATION = 'mystuff.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 import dj_database_url
-print(dj_database_url.config())
+
 
 DATABASES = { 'default': dj_database_url.config() }
 # DATABASES = {
