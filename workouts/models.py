@@ -11,7 +11,17 @@ class MuscleGroup(models.Model):
         return self.group_name
 
 
-class Exercise(models.Model):
+class DifficultyLevel(models.Model):
+    """
+    Workout level of difficulty
+    """
+    level = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.level
+
+
+class ExerciseName(models.Model):
     """
     name of a single exercise
     such as lateral raises
@@ -28,7 +38,7 @@ class ExerciseSet(models.Model):
      The directions on how the exercise
      should be executed
     """
-    exercise = models.ForeignKey(Exercise)
+    exercise = models.ForeignKey(ExerciseName)
     number_of_sets = models.CharField(max_length=15)
     weight = models.CharField(max_length=200, blank=True)
     reps = models.CharField(max_length=200, blank=True)
@@ -45,10 +55,25 @@ class Workout(models.Model):
     """
     workout_name = models.CharField(max_length=60, unique=True)
     group_name = models.ForeignKey(MuscleGroup)
+    level = models.ForeignKey(DifficultyLevel)
     exercise = models.ManyToManyField(ExerciseSet)
 
     def __str__(self):
-        return '{} {} {}'.format(self.group_name, self.workout_name, self.exercise)
+        return '{} {} {} {}'.format(self.group_name, self.level, self.workout_name, self.exercise)
 
 
+class WeeklyWorkout(models.Model):
+    week_of = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.week_of
+
+
+class Split(models.Model):
+    week_of = models.ForeignKey(WeeklyWorkout)
+    day = models.CharField(max_length=2)
+    workouts = models.ForeignKey(Workout)
+
+    def __str__(self):
+        return self.day
 
