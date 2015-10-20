@@ -61,6 +61,9 @@ class Workout(models.Model):
 
 
 class WeeklyWorkout(models.Model):
+    """
+    Raw id field to enter in a date
+    """
     week_of = models.CharField(max_length=50)
 
     def __str__(self):
@@ -68,6 +71,10 @@ class WeeklyWorkout(models.Model):
 
 
 class Split(models.Model):
+    """
+    Inline model with WeeklyWorkout, this is a form that splits
+    up a given number of workouts for the week
+    """
     week_of = models.ForeignKey(WeeklyWorkout)
     day = models.CharField(max_length=2)
     workouts = models.ManyToManyField(Workout)
