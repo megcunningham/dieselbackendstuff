@@ -1,22 +1,29 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from workouts.serializers import WorkoutSerializer
-from .models import Workout, MuscleGroup
+from workouts.serializers import WorkoutSerializer, WeeklySerializer, SplitSerializer
+from .models import Workout, MuscleGroup, WeeklyWorkout, Split
 
 
 # Create your views here.
 @api_view(['GET'])
 def get_arms(request):
-    arms = Workout.object.get()
-    serializer = WorkoutSerializer(arms, many=True)
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
+    arms = MuscleGroup.objects.get(group_name='Arms')
+    arms_workouts = Workout.objects.filter(group_name=arms)
+
+    serializer = WorkoutSerializer(arms_workouts, many=True)
+    return Response(serializer.data)
 
 
+@api_view(['GET'])
+def weekly_workout(request):
+    # week_of = WeeklyWorkout.objects.all()
+    add_split = Split.objects.all()
+
+    serializer = SplitSerializer(add_split, many=True)
+    return Response(serializer.data)
 
 
-# def weekly_workout(request):
-#     weekly = WeeklyWorkout.objects.all()
 #     serializer = WeeklySerializer(weekly, many=True)
 #     return Response(serializer.data, status=status.HTTP_201_CREATED)
     # try:

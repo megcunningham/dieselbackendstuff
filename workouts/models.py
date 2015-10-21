@@ -40,7 +40,7 @@ class ExerciseSet(models.Model):
     number_of_sets = models.CharField(max_length=15)
     weight = models.CharField(max_length=200, blank=True)
     reps = models.CharField(max_length=200, blank=True)
-    notes = models.CharField(max_length=200, blank=True)
+    notes = models.TextField(blank=True)
     group_name = models.ForeignKey(MuscleGroup)
 
     def __str__(self):
