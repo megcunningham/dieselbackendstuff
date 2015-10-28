@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from workouts.models import Workout, MuscleGroup, ExerciseSet
+from workouts.models import Workout, MuscleGroup, ExerciseSet, ExerciseName
 # from django.core import serializers
 
 
@@ -11,16 +11,29 @@ class ExerciseSerializer(serializers.Serializer):
     exercise_name = serializers.CharField()
 
 
-class ExerciseSetSerializer(serializers.Serializer):
+class ExerciseSetSerializer(serializers.ModelSerializer):
+    exercise = serializers.CharField()
     number_of_sets = serializers.CharField()
     weight = serializers.CharField()
     reps = serializers.CharField()
     notes = serializers.CharField()
 
+    # class Meta:
+    #     model = ExerciseName
+    #     fields = ('exercise_name',)
 
-class WorkoutSerializer(serializers.Serializer):
+    class Meta:
+        model = ExerciseSet
+        fields = ('exercise', 'number_of_sets', 'weight', 'reps', 'notes',)
+
+
+class WorkoutSerializer(serializers.ModelSerializer):
     workout_name = serializers.CharField()
-    exercise = serializers.CharField()
+    exercise = ExerciseSetSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Workout
+        fields = ('workout_name', 'exercise')
 
 
 class SplitSerializer(serializers.Serializer):

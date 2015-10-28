@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from workouts.views import get_arms, weekly_workout
+from workouts.views import get_arms, get_back, get_chest, get_legs, get_shoulders, weekly_workout
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^arms/', get_arms),
+    url(r'^back/', get_back),
+    url(r'^chest/', get_chest),
+    url(r'^legs/', get_legs),
+    url(r'^shoulders/', get_shoulders),
     url(r'^weekly_workout/', weekly_workout),
 ]
