@@ -9,7 +9,7 @@ class WorkoutAdmin(admin.ModelAdmin):
     # inlines = [AddWorkoutInline,]
     search_fields = ('workout_name', )
     list_display = ('workout_name', 'group_name', 'level',)
-    list_filter = ('group_name','level', )
+    list_filter = ('group_name', 'level', )
     filter_horizontal = ('exercise', )
 
 

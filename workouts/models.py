@@ -76,7 +76,7 @@ class Split(models.Model):
     up a given number of workouts for the week
     """
     week_of = models.ForeignKey(WeeklyWorkout)
-    day = models.CharField(max_length=2)
+    days = models.CharField(max_length=2)
     workouts = models.ManyToManyField(Workout)
 
     def __str__(self):

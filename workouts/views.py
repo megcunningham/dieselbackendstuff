@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from workouts.serializers import WorkoutSerializer, WeeklySerializer, SplitSerializer
+from workouts.serializers import WorkoutSerializer, SplitSerializer
 from .models import Workout, MuscleGroup, WeeklyWorkout, Split
 
 
@@ -53,17 +53,8 @@ def get_shoulders(request):
 
 @api_view(['GET'])
 def weekly_workout(request):
-    # week_of = WeeklyWorkout.objects.all()
-    add_split = Split.objects.all()
+    split = Split.objects.all()
 
-    serializer = SplitSerializer(add_split, many=True)
+    serializer = SplitSerializer(split, many=True)
     return Response(serializer.data)
 
-
-#     serializer = WeeklySerializer(weekly, many=True)
-#     return Response(serializer.data, status=status.HTTP_201_CREATED)
-    # try:
-    #     date = WeeklyWorkout.objects.all()
-    # except WeeklyWorkout.DoesNotExist:
-    #     raise Http404("Date does not exist")
-    # return Response('polls/detail.html', {'poll': p})

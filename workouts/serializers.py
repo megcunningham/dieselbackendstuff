@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from workouts.models import Workout, MuscleGroup, ExerciseSet, ExerciseName
+from workouts.models import Workout,  MuscleGroup, ExerciseSet, ExerciseName, Split
 # from django.core import serializers
 
 
@@ -18,10 +18,6 @@ class ExerciseSetSerializer(serializers.ModelSerializer):
     reps = serializers.CharField()
     notes = serializers.CharField()
 
-    # class Meta:
-    #     model = ExerciseName
-    #     fields = ('exercise_name',)
-
     class Meta:
         model = ExerciseSet
         fields = ('exercise', 'number_of_sets', 'weight', 'reps', 'notes',)
@@ -36,9 +32,14 @@ class WorkoutSerializer(serializers.ModelSerializer):
         fields = ('workout_name', 'exercise')
 
 
-class SplitSerializer(serializers.Serializer):
-    day = serializers.CharField()
-    workouts = serializers.CharField()
+class SplitSerializer(serializers.ModelSerializer):
+    week_of = serializers.CharField()
+    days = serializers.CharField()
+    workouts = serializers.StringRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Split
+        fields = ('week_of', 'days', 'workouts',)
 
 
 class WeeklySerializer(serializers.Serializer):
