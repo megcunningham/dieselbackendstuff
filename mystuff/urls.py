@@ -19,6 +19,7 @@ from workouts.views import get_arms, get_back, get_chest, get_legs, get_shoulder
 
 
 urlpatterns = [
+    url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/arms/', get_arms),
     url(r'^api/back/', get_back),
