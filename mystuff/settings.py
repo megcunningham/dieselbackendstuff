@@ -33,7 +33,7 @@ SECRET_KEY = '*v&pfdd3c&wqo)_je#k1+3tgoz8mf!3+dcq75i-9(^k$+5+0*7'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+#
 # CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = ('http://localhost:8100',)
 
@@ -59,7 +59,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -93,16 +93,16 @@ WSGI_APPLICATION = 'mystuff.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-import dj_database_url
-
-
-DATABASES = { 'default': dj_database_url.config() }
-# DATABASES = {
-#     'default':  {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+# import dj_database_url
+#
+#
+# DATABASES = { 'default': dj_database_url.config() }
+DATABASES = {
+    'default':  {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, '../mystuff/db.sqlite3'),
+    }
+}
 
 
 # Internationalization
