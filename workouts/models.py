@@ -37,7 +37,7 @@ class ExerciseSet(models.Model):
      The directions on how the exercise should be executed
     """
     exercise = models.ForeignKey(ExerciseName)
-    number_of_sets = models.CharField(max_length=15)
+    number_of_sets = models.CharField(max_length=30)
     weight = models.CharField(max_length=200, blank=True)
     reps = models.CharField(max_length=200, blank=True)
     notes = models.TextField(blank=True)
