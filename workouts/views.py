@@ -58,3 +58,10 @@ def weekly_workout(request):
     serializer = SplitSerializer(split, many=True)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+def search_names(request):
+    search = Workout.objects.all()
+
+    serializer = WorkoutSerializer(search, many=True)
+    return Response(serializer.data)

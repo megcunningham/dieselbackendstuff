@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from workouts.views import get_arms, get_back, get_chest, get_legs, get_shoulders, weekly_workout
+from workouts.views import get_arms, get_back, get_chest, get_legs, get_shoulders, weekly_workout, search_names
 
 
 urlpatterns = [
@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^api/legs/', get_legs),
     url(r'^api/shoulders/', get_shoulders),
     url(r'^api/weekly_workout/', weekly_workout),
+    url(r'^api/search/', search_names),
 ]
