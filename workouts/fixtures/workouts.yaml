@@ -1,0 +1,20 @@
+-   fields: {group_name: Arms}
+    model: workouts.musclegroup
+    pk: 1
+-   fields: {level: Beginner}
+    model: workouts.difficultylevel
+    pk: 1
+-   fields: {group_name: 1, name: Pizza bites}
+    model: workouts.exercisename
+    pk: 1
+-   fields: {exercise: 1, group_name: 1, notes: '', number_of_sets: '3', reps: '1',
+        weight: ''}
+    model: workouts.exerciseset
+    pk: 1
+-   fields:
+        exercise: [1]
+        group_name: 1
+        level: 1
+        workout_name: 7 sets
+    model: workouts.workout
+    pk: 1
