@@ -1,5 +1,7 @@
 from django.contrib import admin
-from workouts.models import MuscleGroup, Workout, ExerciseName, ExerciseSet, DifficultyLevel, WeeklyWorkout, Split
+from workouts.models import Workout, ExerciseName, CompleteSet, DifficultyLevel, WeeklyWorkout, Split, \
+    NumberOfSet, Note
+
 
 # admin.site.register(Split)
 
@@ -13,12 +15,36 @@ class WorkoutAdmin(admin.ModelAdmin):
     filter_horizontal = ('exercise', )
 
 
-@admin.register(ExerciseSet)
-class ExerciseSetAdmin(admin.ModelAdmin):
-    list_display = ('exercise', 'number_of_sets', 'weight', 'reps', 'notes',)
-    list_filter = ('group_name',)
-    # search_fields = ('reps',)
-    # raw_id_fields = ('exercise',)
+class NumberOfSetInline(admin.TabularInline):
+    model = NumberOfSet
+
+
+class NoteInline(admin.TabularInline):
+    model = Note
+
+
+
+
+# class WeightInline(admin.TabularInline):
+#     model = Weight
+#
+#
+# class RepInline(admin.TabularInline):
+#     model = Rep
+
+
+@admin.register(CompleteSet)
+class CompleteSetAdmin(admin.ModelAdmin):
+    inlines = [NumberOfSetInline, Note]
+    raw_field = ('exercise',)
+    list_display = ('exercise', 'notes', 'group_name',)
+
+
+# @admin.register(ExerciseSet)
+# class ExerciseSetAdmin(admin.ModelAdmin):
+#     list_display = ('exercise', 'notes',)
+#     raw_id_field = ('exercise', )
+#     list_filter = ('group_name',)
 
 
 @admin.register(ExerciseName)
@@ -42,7 +68,7 @@ class WeeklyWorkoutAdmin(admin.ModelAdmin):
     inlines = [SplitInline,]
 
 
-admin.site.register(MuscleGroup)
+
 admin.site.register(DifficultyLevel)
 
 
