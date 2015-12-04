@@ -1,9 +1,14 @@
 from django.contrib import admin
 
-from diets.models import ClientStat, FoodGroup, Food, Meal, Diet, MeasureServing
+from diets.models import ClientStat, FoodGroup, Food, Meal, Diet, MeasureServing, Quantity, MealNumber
 
 
-class ClientStatInline(admin.StackedInline):
+# @admin.register(MeasureServing)
+# class MeasureServingAdmin(admin.ModelAdmin):
+#     list_display = ('serving_size',)
+#     fields = ('serving_size',)
+
+class ClientStatInline(admin.TabularInline):
     model = ClientStat
     extra = 0
 
@@ -22,43 +27,40 @@ class FoodGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Food)
 class FoodAdmin(admin.ModelAdmin):
-    # raw_id_fields = ('protein', 'carbohydrates', 'greens', 'fats',)
     search_fields = ('food',)
     list_display = ('food', 'food_group',)
     list_filter = ('food_group',)
 
 
-class MealInline(admin.StackedInline):
+class MealInline(admin.TabularInline):
     model = Meal
+    fields = ('food', 'quantity', 'serving_size',)
+    extra = 4
+    max_num = 5
+
+# admin.site.register(MeasureServing)
+# class MeasureServingInline(admin.TabularInline):
+#     model = MeasureServing
+#     fields = ('food', 'quantity', 'serving_size',)
+#     extra = 5
 
 
-class MeasureServingInline(admin.TabularInline):
-    model = MeasureServing
-    fieldsets = [food, serving_size,]
-
-
-@admin.register(Meal)
-class MealAdmin(admin.ModelAdmin):
-    inlines = [MeasureServingInline,]
+# @admin.register(Meal)
+# class MealAdmin(admin.ModelAdmin):
+#     inlines = [MeasureServingInline, ]
 
 
 @admin.register(Diet)
 class DietAdmin(admin.ModelAdmin):
     inlines = [MealInline,]
+    # raw_id_fields = ('client',)
+    fields = ('date', 'name', 'weight', 'body_fat', 'show', 'weeks_out', )
+    list_display = ('date', 'name',)
+    search_fields = ('name', 'date',)
+    list_filter = ('name',)
 
 
 
-#
-#
-# class MeasureServingInline(admin.TabularInline):
-#     model = MeasureServing
-#     extra = 3
-#     max_num = 3
-#
-#
-# @admin.register(NewDiet)
-# class NewDietAdmin(admin.ModelAdmin):
-#     inlines = [MeasureServingInline,]
 
 
 

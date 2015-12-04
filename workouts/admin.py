@@ -3,7 +3,6 @@ from workouts.models import Workout, ExerciseName, CompleteSet, DifficultyLevel,
     NumberOfSet
 
 
-
 @admin.register(Workout)
 class WorkoutAdmin(admin.ModelAdmin):
     search_fields = ('workout_name', )
@@ -53,7 +52,6 @@ class SplitInline(admin.StackedInline):
 class WeeklyWorkoutAdmin(admin.ModelAdmin):
     # list_display = ('week_of',)
     inlines = [SplitInline,]
-
 
 
 admin.site.register(DifficultyLevel)

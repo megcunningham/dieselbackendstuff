@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CompleteSet',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('group_name', models.CharField(max_length=20)),
                 ('notes', models.TextField(blank=True)),
             ],
@@ -24,16 +24,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DifficultyLevel',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('level', models.CharField(default='Beginner', unique=True, max_length=50)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                ('level', models.CharField(max_length=50, unique=True, default='Beginner')),
             ],
         ),
         migrations.CreateModel(
             name='ExerciseName',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('group_name', models.CharField(max_length=20)),
-                ('name', models.CharField(unique=True, max_length=75)),
+                ('name', models.CharField(max_length=75, unique=True)),
             ],
             options={
                 'abstract': False,
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='NumberOfSet',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('set_number', models.CharField(max_length=30)),
                 ('weight', models.CharField(blank=True, max_length=30)),
                 ('reps', models.CharField(blank=True, max_length=30)),
@@ -52,23 +52,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Split',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('days', models.CharField(max_length=2)),
             ],
         ),
         migrations.CreateModel(
             name='WeeklyWorkout',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('week_of', models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
             name='Workout',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
                 ('group_name', models.CharField(max_length=20)),
-                ('workout_name', models.CharField(unique=True, max_length=60)),
+                ('workout_name', models.CharField(max_length=60, unique=True)),
                 ('exercise', models.ManyToManyField(to='workouts.CompleteSet')),
                 ('level', models.ForeignKey(to='workouts.DifficultyLevel')),
             ],

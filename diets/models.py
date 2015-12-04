@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 
 class ClientStat(models.Model):
@@ -10,6 +11,9 @@ class ClientStat(models.Model):
     weight = models.CharField(max_length=3, blank=True, null=True)
     show = models.CharField(max_length=100, blank=True)
     weeks_out = models.CharField(max_length=3, blank=True, null=True)
+
+    class Meta:
+        abstract = False
 
     def __str__(self):
         return self.name
@@ -26,46 +30,58 @@ class Food(models.Model):
     """
     all foods
     """
-    food = models.CharField(max_length=25, unique=True)
+    food = models.CharField(max_length=25, unique=True, blank=True)
     food_group = models.ForeignKey(FoodGroup)
 
     def __str__(self):
         return self.food
 
 
-class Diet(models.Model):
+class Diet(ClientStat):
     """
     diet form
     """
-    date = models.DateField(auto_now_add=True)
-    stats = models.ForeignKey(ClientStat)
+   # date = models.DateField(input_format=['%b %d, %Y',])
+    date = models.CharField(max_length=30)
 
     def __str__(self):
-        return '{} - {}'.format(self.date, self.stats)
+        return self.date
 
+
+class Quantity(models.Model):
+    quantity = models.CharField(max_length=15, blank=True)
+
+    def __str__(self):
+        return self.quantity
+
+
+class MeasureServing(models.Model):
+    serving_size = models.CharField(max_length=10, blank=True)
+
+    def __str__(self):
+        return self.serving_size
 
 
 class Meal(models.Model):
     """
     Meal Number
     """
-    meal_number = models.CharField(max_length=50, blank=True)
-    # food = models.ManyToManyField(Food, blank=True)
-    # serving_size = models.CharField(max_length=10, blank=True)
+    # meal_number = models.CharField(max_length=50, blank=True)
+    food = models.ForeignKey(Food, blank=True)
+    quantity = models.ForeignKey(Quantity, blank=True)
+    serving_size = models.ForeignKey(MeasureServing, null=True)
     diet = models.ForeignKey(Diet)
+
+    def __str__(self):
+        return '{} {} {}'.format(self.food, self.quantity, self.serving_size)
+
+
+class MealNumber(Meal):
+    meal_number = models.CharField(max_length=15)
+    # diet = models.ForeignKey(Diet)
 
     def __str__(self):
         return self.meal_number
-
-
-class MeasureServing(models.Model):
-    meal = models.ForeignKey(Meal)
-    food = models.ForeignKey(Food, blank=True)
-    serving_size = models.CharField(max_length=50, blank=True)
-    diet = models.ForeignKey(Diet)
-
-    def __str__(self):
-        return self.serving_size
 
 
 
