@@ -1,5 +1,5 @@
 from django.db import models
-import datetime
+from django.utils import timezone as time_manager
 
 
 class ClientStat(models.Model):
@@ -41,11 +41,10 @@ class Diet(ClientStat):
     """
     diet form
     """
-   # date = models.DateField(input_format=['%b %d, %Y',])
-    date = models.CharField(max_length=30)
+    date = models.DateField(default=time_manager.now, help_text='Created on')
 
     def __str__(self):
-        return self.date
+        return '{}'.format(self.date)
 
 
 class Quantity(models.Model):

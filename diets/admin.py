@@ -38,21 +38,16 @@ class MealInline(admin.TabularInline):
     extra = 4
     max_num = 5
 
-# admin.site.register(MeasureServing)
-# class MeasureServingInline(admin.TabularInline):
-#     model = MeasureServing
-#     fields = ('food', 'quantity', 'serving_size',)
-#     extra = 5
 
-
-# @admin.register(Meal)
-# class MealAdmin(admin.ModelAdmin):
-#     inlines = [MeasureServingInline, ]
-
+class MealNumberInline(admin.TabularInline):
+    model = MealNumber
+    inlines = [MealInline,]
+    fields = ('meal_number', 'food', 'quantity', 'serving_size',)
+    max_num = 7
 
 @admin.register(Diet)
 class DietAdmin(admin.ModelAdmin):
-    inlines = [MealInline,]
+    inlines = [MealNumberInline, MealInline]
     # raw_id_fields = ('client',)
     fields = ('date', 'name', 'weight', 'body_fat', 'show', 'weeks_out', )
     list_display = ('date', 'name',)
