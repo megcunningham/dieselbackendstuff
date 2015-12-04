@@ -1,28 +1,66 @@
 from django.contrib import admin
 
-from diets.models import Stat, Food, Meal, Serving, Protein, Carbohydrate, Green, NewDiet, Fat
+from diets.models import ClientStat, FoodGroup, Food, Meal, Diet, MeasureServing
 
 
-admin.site.register(Meal)
-admin.site.register(Serving)
-admin.site.register(Protein)
-admin.site.register(Carbohydrate)
-admin.site.register(Green)
-admin.site.register(Fat)
-admin.site.register(NewDiet)
+class ClientStatInline(admin.StackedInline):
+    model = ClientStat
+    extra = 0
 
 
-@admin.register(Stat)
-class StatAdmin(admin.ModelAdmin):
+@admin.register(ClientStat)
+class ClientStatAdmin(admin.ModelAdmin):
     list_display = ('name', 'body_fat', 'weight', 'show', 'weeks_out',)
     list_filter = ('name', 'show', 'weeks_out',)
     search_fields = ('name', 'show', 'weeks_out',)
 
 
+@admin.register(FoodGroup)
+class FoodGroupAdmin(admin.ModelAdmin):
+    list_display = ('food_group',)
+
+
 @admin.register(Food)
 class FoodAdmin(admin.ModelAdmin):
-    raw_id_fields = ('protein', 'carbohydrates', 'greens', 'fats',)
-    list_filter = ('protein', 'carbohydrates', 'greens', 'fats',)
+    # raw_id_fields = ('protein', 'carbohydrates', 'greens', 'fats',)
+    search_fields = ('food',)
+    list_display = ('food', 'food_group',)
+    list_filter = ('food_group',)
+
+
+class MealInline(admin.StackedInline):
+    model = Meal
+
+
+class MeasureServingInline(admin.TabularInline):
+    model = MeasureServing
+    fieldsets = [food, serving_size,]
+
+
+@admin.register(Meal)
+class MealAdmin(admin.ModelAdmin):
+    inlines = [MeasureServingInline,]
+
+
+@admin.register(Diet)
+class DietAdmin(admin.ModelAdmin):
+    inlines = [MealInline,]
+
+
+
+#
+#
+# class MeasureServingInline(admin.TabularInline):
+#     model = MeasureServing
+#     extra = 3
+#     max_num = 3
+#
+#
+# @admin.register(NewDiet)
+# class NewDietAdmin(admin.ModelAdmin):
+#     inlines = [MeasureServingInline,]
+
+
 
 
 

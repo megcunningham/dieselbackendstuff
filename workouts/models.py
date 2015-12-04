@@ -1,5 +1,5 @@
 from django.db import models
-from Common.models import MuscleGroupMixin 
+from common.models import MuscleGroupMixin
 
 
 class DifficultyLevel(models.Model):
@@ -12,7 +12,7 @@ class DifficultyLevel(models.Model):
         return self.level
 
 
-class ExerciseName(models.Model):
+class ExerciseName(MuscleGroupMixin, models.Model):
     """
     name of a single exercise such as lateral raises
     """
@@ -38,47 +38,25 @@ class ExerciseName(models.Model):
 #         return '{}-{} sets for {} reps ({})'.format(self.exercise, self.number_of_sets, self.reps, self.notes)
 
 
-class CompleteSet(models.Model):
+class CompleteSet(MuscleGroupMixin, models.Model):
     exercise = models.ForeignKey(ExerciseName)
+    notes = models.TextField(blank=True)
 
     def __str__(self):
-        return self.id
+        return '{} - {}'.format(self.exercise, self.notes)
 
 
 class NumberOfSet(models.Model):
     set_number = models.CharField(max_length=30)
     weight = models.CharField(max_length=30, blank=True)
     reps = models.CharField(max_length=30, blank=True)
-    complete_set = models.ForeignKey(CompleteSet)
+    exercise_set = models.ForeignKey(CompleteSet)
 
     def __str__(self):
         return self.set_number
 
-#
-# class Weight(models.Model):
-#     weight = models.CharField(max_length=30, blank=True)
-#     complete_set = models.ForeignKey(CompleteSet)
-#
-#     def __str__(self):
-#         return self.weight
-#
-#
-# class Rep(models.Model):
-#     reps = models.CharField(max_length=30, blank=True)
-#     complete_set = models.ForeignKey(CompleteSet)
-#
-#     def __str__(self):
-#         return self.reps
 
-class Note(models.Model):
-    notes = models.TextField(blank=True)
-    complete_set = models.ForeignKey(CompleteSet)
-
-    def __str__(self):
-        return self.notes
-
-
-class Workout(models.Model):
+class Workout(MuscleGroupMixin, models.Model):
     """
     The named workout with collection of exercises and directions
     """

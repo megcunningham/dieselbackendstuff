@@ -1,14 +1,11 @@
 from django.contrib import admin
 from workouts.models import Workout, ExerciseName, CompleteSet, DifficultyLevel, WeeklyWorkout, Split, \
-    NumberOfSet, Note
+    NumberOfSet
 
-
-# admin.site.register(Split)
 
 
 @admin.register(Workout)
 class WorkoutAdmin(admin.ModelAdmin):
-    # inlines = [AddWorkoutInline,]
     search_fields = ('workout_name', )
     list_display = ('workout_name', 'group_name', 'level',)
     list_filter = ('group_name', 'level', )
@@ -17,27 +14,16 @@ class WorkoutAdmin(admin.ModelAdmin):
 
 class NumberOfSetInline(admin.TabularInline):
     model = NumberOfSet
-
-
-class NoteInline(admin.TabularInline):
-    model = Note
-
-
-
-
-# class WeightInline(admin.TabularInline):
-#     model = Weight
-#
-#
-# class RepInline(admin.TabularInline):
-#     model = Rep
+    list_display = ('set_number', 'reps', 'weight',)
 
 
 @admin.register(CompleteSet)
 class CompleteSetAdmin(admin.ModelAdmin):
-    inlines = [NumberOfSetInline, Note]
-    raw_field = ('exercise',)
-    list_display = ('exercise', 'notes', 'group_name',)
+    inlines = [NumberOfSetInline,]
+    # raw_id_fields = ('exercise',)
+    list_display = ('exercise',)
+    search_fields = ('exercise',)
+    # list_filter = ('group_name',)
 
 
 # @admin.register(ExerciseSet)
@@ -50,8 +36,9 @@ class CompleteSetAdmin(admin.ModelAdmin):
 @admin.register(ExerciseName)
 class ExerciseNameAdmin(admin.ModelAdmin):
     search_fields = ('name',)
+
     list_filter = ('group_name',)
-    # list_display = ('name', 'group_name',)
+    list_display = ('name', 'group_name',)
 
 
 class SplitInline(admin.StackedInline):

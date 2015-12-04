@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from workouts.models import Workout,  MuscleGroup, CompleteSet, ExerciseName, Split
+from workouts.models import Workout, CompleteSet, ExerciseName, Split
 # from django.core import serializers
 
 
-class GroupSerializer(serializers.Serializer):
-    group_name = serializers.CharField()
+# class GroupSerializer(serializers.Serializer):
+#     group_name = serializers.CharField()
 
 
 # class ExerciseSerializer(serializers.Serializer):
 #     exercise_name = serializers.CharField()
 #
 #
-# class ExerciseSetSerializer(serializers.ModelSerializer):
+# class CompleteSetSerializer(serializers.ModelSerializer):
 #     exercise = serializers.CharField()
 #     number_of_sets = serializers.CharField()
 #     weight = serializers.CharField()
