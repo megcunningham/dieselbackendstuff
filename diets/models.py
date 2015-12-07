@@ -2,13 +2,21 @@ from django.db import models
 from django.utils import timezone as time_manager
 
 
-class ClientStat(models.Model):
+class Date(models.Model):
+    date = models.DateField(default=time_manager.now, help_text='Created on')
+
+    def __str__(self):
+        return self.date
+
+
+class ClientStat(Date):
     """
     name, body fat, weeks out from show, etc
     """
+
     name = models.CharField(max_length=150)
     body_fat = models.CharField(max_length=40, blank=True)
-    weight = models.CharField(max_length=3, blank=True, null=True)
+    weight = models.CharField(max_length=10, blank=True, null=True)
     show = models.CharField(max_length=100, blank=True)
     weeks_out = models.CharField(max_length=3, blank=True, null=True)
 
@@ -41,7 +49,10 @@ class Diet(ClientStat):
     """
     diet form
     """
-    date = models.DateField(default=time_manager.now, help_text='Created on')
+    notes = models.TextField(help_text='Trainer notes')
+
+    # class Meta:
+    #     get_latest_by = "date"
 
     def __str__(self):
         return '{}'.format(self.date)
@@ -65,7 +76,7 @@ class Meal(models.Model):
     """
     Meal Number
     """
-    # meal_number = models.CharField(max_length=50, blank=True)
+    meal_number = models.CharField(max_length=50, blank=True, help_text='Notes')
     food = models.ForeignKey(Food, blank=True)
     quantity = models.ForeignKey(Quantity, blank=True)
     serving_size = models.ForeignKey(MeasureServing, null=True)
@@ -75,12 +86,12 @@ class Meal(models.Model):
         return '{} {} {}'.format(self.food, self.quantity, self.serving_size)
 
 
-class MealNumber(Meal):
-    meal_number = models.CharField(max_length=15)
-    # diet = models.ForeignKey(Diet)
-
-    def __str__(self):
-        return self.meal_number
+# class MealNumber(Meal):
+#     meal_number = models.CharField(max_length=15)
+#     diet = models.ForeignKey(Diet)
+#
+#     def __str__(self):
+#         return self.meal_number
 
 
 
