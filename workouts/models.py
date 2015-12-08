@@ -40,16 +40,16 @@ class ExerciseName(MuscleGroupMixin, models.Model):
 
 class CompleteSet(MuscleGroupMixin, models.Model):
     exercise = models.ForeignKey(ExerciseName)
-    notes = models.TextField(blank=True)
+    notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return '{} - {}'.format(self.exercise, self.notes)
 
 
 class NumberOfSet(models.Model):
-    set_number = models.CharField(max_length=30)
-    weight = models.CharField(max_length=30, blank=True)
-    reps = models.CharField(max_length=30, blank=True)
+    set_number = models.CharField(max_length=30, blank=True, null=True)
+    weight = models.CharField(max_length=30, blank=True, null=True)
+    reps = models.CharField(max_length=30, blank=True, null=True)
     exercise_set = models.ForeignKey(CompleteSet)
 
     def __str__(self):

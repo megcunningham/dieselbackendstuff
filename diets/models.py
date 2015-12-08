@@ -15,9 +15,9 @@ class ClientStat(Date):
     """
 
     name = models.CharField(max_length=150)
-    body_fat = models.CharField(max_length=40, blank=True)
+    body_fat = models.CharField(max_length=40, null=True, blank=True)
     weight = models.CharField(max_length=10, blank=True, null=True)
-    show = models.CharField(max_length=100, blank=True)
+    show = models.CharField(max_length=100, null=True, blank=True)
     weeks_out = models.CharField(max_length=3, blank=True, null=True)
 
     class Meta:
@@ -38,7 +38,7 @@ class Food(models.Model):
     """
     all foods
     """
-    food = models.CharField(max_length=25, unique=True, blank=True)
+    food = models.CharField(max_length=25, unique=True, null=True, blank=True)
     food_group = models.ForeignKey(FoodGroup)
 
     def __str__(self):
@@ -50,9 +50,6 @@ class Diet(ClientStat):
     diet form
     """
     notes = models.TextField(help_text='Trainer notes')
-
-    # class Meta:
-    #     get_latest_by = "date"
 
     def __str__(self):
         return '{}'.format(self.date)
@@ -76,9 +73,9 @@ class Meal(models.Model):
     """
     Meal Number
     """
-    meal_number = models.CharField(max_length=50, blank=True, help_text='Notes')
-    food = models.ForeignKey(Food, blank=True)
-    quantity = models.ForeignKey(Quantity, blank=True)
+    note = models.CharField(max_length=50, blank=True, help_text='Meal No.')
+    food = models.ForeignKey(Food, null=True, blank=True)
+    quantity = models.ForeignKey(Quantity, null=True, blank=True)
     serving_size = models.ForeignKey(MeasureServing, null=True)
     diet = models.ForeignKey(Diet)
 

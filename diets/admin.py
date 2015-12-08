@@ -37,7 +37,7 @@ class FoodAdmin(admin.ModelAdmin):
 
 class MealInline(admin.StackedInline):
     model = Meal
-    fields = ('meal_number', 'food', 'quantity', 'serving_size',)
+    fields = ('note', 'food', 'quantity', 'serving_size',)
     extra = 5
     max_num = 30
 

@@ -1,4 +1,5 @@
 from django.db import models
+from uuid import uuid4 as uuid_generator
 
 
 class MuscleGroupMixin(models.Model):
@@ -12,3 +13,13 @@ class MuscleGroupMixin(models.Model):
 
     def __str__(self):
         return self.group_name
+
+
+class UUIDMixin(models.Model):
+    """
+    Add to have globally unique identifier fields added to a model
+    """
+    class Meta:
+        abstract = True
+
+    uuid = models.UUIDField(unique=True, default=uuid_generator)
