@@ -39,7 +39,7 @@ class Food(models.Model):
     all foods
     """
     food = models.CharField(max_length=25, unique=True, null=True, blank=True)
-    food_group = models.ForeignKey(FoodGroup)
+    food_group = models.ForeignKey(FoodGroup, verbose_name=u"Related Lookup (FK)")
 
     def __str__(self):
         return self.food
@@ -77,6 +77,7 @@ class Meal(models.Model):
     food = models.ForeignKey(Food, null=True, blank=True)
     quantity = models.ForeignKey(Quantity, null=True, blank=True)
     serving_size = models.ForeignKey(MeasureServing, null=True)
+
     diet = models.ForeignKey(Diet)
 
     def __str__(self):

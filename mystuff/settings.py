@@ -42,10 +42,12 @@ CORS_ORIGIN_WHITELIST = ('http://localhost:8100',)
 
 INSTALLED_APPS = (
     'grappelli',
+    'grappelli.dashboard',
     # 'autocomplete_light',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -74,32 +76,39 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'mystuff.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-
-]
-
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [],
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+#
+# ]
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
 
     "django.core.context_processors.request",
+    'django.template.context_processors.debug',
+    'django.template.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
 )
 
 WSGI_APPLICATION = 'mystuff.wsgi.application'
 
+
+GRAPPELLI_INDEX_DASHBOARD = 'yourproject.dashboard.CustomIndexDashboard'
+GRAPPELLI_ADMIN_TITLE = 'TEAM DIESEL ADMINISTRATION'
+GRAPPELLI_CLEAN_INPUT_TYPES = True
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

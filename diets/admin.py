@@ -11,6 +11,11 @@ from diets.models import ClientStat, FoodGroup, Food, Meal, Diet, MeasureServing
 #     fields = ('serving_size',)
 
 
+class MyModelOptions(admin.ModelAdmin):
+    change_list_template = "admin/change_list_filter_sidebar.html"
+    change_list_filter_template = "admin/filter_listing.html"
+
+
 class ClientStatInline(admin.StackedInline):
     model = ClientStat
     extra = 0
@@ -35,12 +40,16 @@ class FoodAdmin(admin.ModelAdmin):
     list_filter = ('food_group',)
 
 
-class MealInline(admin.StackedInline):
+class MealInline(admin.TabularInline):
     model = Meal
     fields = ('note', 'food', 'quantity', 'serving_size',)
-    raw_id_fields = ('food',)
     extra = 5
     max_num = 30
+    raw_id_fields = ('food',)
+    # define the related_lookup_fields
+    related_lookup_fields = {
+        'fk': ['food_group'],
+    }
 
 
 # class MealNumberInline(admin.TabularInline):
@@ -54,9 +63,11 @@ class MealInline(admin.StackedInline):
 class DietAdmin(admin.ModelAdmin):
     inlines = [MealInline,]
     fields = ('date', 'name', 'weight', 'body_fat', 'show', 'weeks_out', )
-    list_display = ('date', 'name',)
+    list_display = ('date', 'name', 'weight', 'body_fat',)
     search_fields = ('name', 'date',)
     list_filter = ('name',)
+
+
 
 
 
