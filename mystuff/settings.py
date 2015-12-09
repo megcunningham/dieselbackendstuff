@@ -41,6 +41,7 @@ CORS_ORIGIN_WHITELIST = ('http://localhost:8100',)
 # Application definition
 
 INSTALLED_APPS = (
+    'autocomplete_light',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

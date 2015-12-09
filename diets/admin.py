@@ -38,6 +38,7 @@ class FoodAdmin(admin.ModelAdmin):
 class MealInline(admin.StackedInline):
     model = Meal
     fields = ('note', 'food', 'quantity', 'serving_size',)
+    raw_id_fields = ('food',)
     extra = 5
     max_num = 30
 
@@ -52,7 +53,6 @@ class MealInline(admin.StackedInline):
 @admin.register(Diet)
 class DietAdmin(admin.ModelAdmin):
     inlines = [MealInline,]
-    # raw_id_fields = ('client',)
     fields = ('date', 'name', 'weight', 'body_fat', 'show', 'weeks_out', )
     list_display = ('date', 'name',)
     search_fields = ('name', 'date',)
