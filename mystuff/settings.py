@@ -41,7 +41,8 @@ CORS_ORIGIN_WHITELIST = ('http://localhost:8100',)
 # Application definition
 
 INSTALLED_APPS = (
-    'autocomplete_light',
+    'grappelli',
+    # 'autocomplete_light',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,7 +88,15 @@ TEMPLATES = [
             ],
         },
     },
+
 ]
+
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+
+    "django.core.context_processors.request",
+)
 
 WSGI_APPLICATION = 'mystuff.wsgi.application'
 
