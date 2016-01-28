@@ -2,14 +2,14 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from workouts.serializers import WorkoutSerializer, SplitSerializer
-from .models import Workout, WeeklyWorkout, Split
+from .models import MuscleGroup, Workout, WeeklyWorkout, Split
 
 
 
 # Create your views here.
 @api_view(['GET'])
 def get_arms(request):
-    arms = MuscleGroupMixin.objects.get(group_name='Arms')
+    arms = MuscleGroup.objects.get(group_name='Arms')
     arms_workouts = Workout.objects.filter(group_name=arms)
 
     serializer = WorkoutSerializer(arms_workouts, many=True)
@@ -18,7 +18,7 @@ def get_arms(request):
 
 @api_view(['GET'])
 def get_back(request):
-    back = MuscleGroupMixin.objects.get(group_name='Back')
+    back = MuscleGroup.objects.get(group_name='Back')
     back_workouts = Workout.objects.filter(group_name=back)
 
     serializer = WorkoutSerializer(back_workouts, many=True)
@@ -27,7 +27,7 @@ def get_back(request):
 
 @api_view(['GET'])
 def get_legs(request):
-    legs = MuscleGroupMixin.objects.get(group_name='Legs')
+    legs = MuscleGroup.objects.get(group_name='Legs')
     leg_workouts = Workout.objects.filter(group_name=legs)
 
     serializer = WorkoutSerializer(leg_workouts, many=True)
@@ -36,7 +36,7 @@ def get_legs(request):
 
 @api_view(['GET'])
 def get_chest(request):
-    chest = MuscleGroupMixin.objects.get(group_name='Chest')
+    chest = MuscleGroup.objects.get(group_name='Chest')
     chest_workouts = Workout.objects.filter(group_name=chest)
 
     serializer = WorkoutSerializer(chest_workouts, many=True)
@@ -45,7 +45,7 @@ def get_chest(request):
 
 @api_view(['GET'])
 def get_shoulders(request):
-    shoulders = MuscleGroupMixin.objects.get(group_name='Shoulders')
+    shoulders = MuscleGroup.objects.get(group_name='Shoulders')
     shoulder_workouts = Workout.objects.filter(group_name=shoulders)
 
     serializer = WorkoutSerializer(shoulder_workouts, many=True)
