@@ -39,7 +39,7 @@ class Food(models.Model):
     all foods
     """
     food = models.CharField(max_length=25, unique=True, null=True, blank=True)
-    food_group = models.ForeignKey(FoodGroup, verbose_name=u"Related Lookup (FK)")
+    food_group = models.ForeignKey(FoodGroup)
 
     def __str__(self):
         return self.food

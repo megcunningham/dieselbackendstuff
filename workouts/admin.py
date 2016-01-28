@@ -1,10 +1,16 @@
 from django.contrib import admin
 from workouts.models import Workout, ExerciseName, CompleteSet, DifficultyLevel, WeeklyWorkout, Split, \
-    NumberOfSet
+    NumberOfSet, MuscleGroup
 
+
+
+# @admin.register(MuscleGroup)
+# class MuscleGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Workout)
 class WorkoutAdmin(admin.ModelAdmin):
+    change_list_template = "admin/change_list_filter_sidebar.html"
+    change_list_filter_template = "admin/filter_listing.html"
     search_fields = ('workout_name', )
     list_display = ('workout_name', 'group_name', 'level',)
     list_filter = ('group_name', 'level', )
@@ -34,6 +40,8 @@ class CompleteSetAdmin(admin.ModelAdmin):
 
 @admin.register(ExerciseName)
 class ExerciseNameAdmin(admin.ModelAdmin):
+    change_list_template = "admin/change_list_filter_sidebar.html"
+    change_list_filter_template = "admin/filter_listing.html"
     search_fields = ('name',)
 
     list_filter = ('group_name',)
@@ -55,6 +63,7 @@ class WeeklyWorkoutAdmin(admin.ModelAdmin):
 
 
 admin.site.register(DifficultyLevel)
+admin.site.register(MuscleGroup)
 
 
 

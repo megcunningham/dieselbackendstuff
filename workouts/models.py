@@ -1,5 +1,14 @@
 from django.db import models
-from common.models import MuscleGroupMixin
+
+
+class MuscleGroup(models.Model):
+    """
+    such as arms, legs, back etc.
+    """
+    group_name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.group_name
 
 
 class DifficultyLevel(models.Model):
@@ -12,12 +21,12 @@ class DifficultyLevel(models.Model):
         return self.level
 
 
-class ExerciseName(MuscleGroupMixin, models.Model):
+class ExerciseName(models.Model):
     """
     name of a single exercise such as lateral raises
     """
+    group_name = models.ForeignKey(MuscleGroup)
     name = models.CharField(max_length=75, unique=True)
-    # group_name = models.ForeignKey(MuscleGroup)
 
     def __str__(self):
         return self.name
@@ -38,7 +47,8 @@ class ExerciseName(MuscleGroupMixin, models.Model):
 #         return '{}-{} sets for {} reps ({})'.format(self.exercise, self.number_of_sets, self.reps, self.notes)
 
 
-class CompleteSet(MuscleGroupMixin, models.Model):
+class CompleteSet(models.Model):
+    group_name = models.ForeignKey(MuscleGroup)
     exercise = models.ForeignKey(ExerciseName)
     notes = models.TextField(blank=True, null=True)
 
@@ -56,12 +66,12 @@ class NumberOfSet(models.Model):
         return self.set_number
 
 
-class Workout(MuscleGroupMixin, models.Model):
+class Workout(models.Model):
     """
     The named workout with collection of exercises and directions
     """
     workout_name = models.CharField(max_length=60, unique=True)
-    # group_name = models.ForeignKey(MuscleGroup)
+    group_name = models.ForeignKey(MuscleGroup)
     level = models.ForeignKey(DifficultyLevel)
     exercise = models.ManyToManyField(CompleteSet)
 
