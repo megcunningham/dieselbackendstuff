@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^api/shoulders/', get_shoulders),
     url(r'^api/weekly_workout/', weekly_workout),
     url(r'^api/search/', search_names),
+    url(r'^api/profiles/', include('profiles.urls'))
 ]
